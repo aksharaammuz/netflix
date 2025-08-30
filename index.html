@@ -4,8 +4,478 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Netflix Clone</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #141414;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+            transition: background 0.3s;
+        }
+
+        .navbar.scrolled {
+            background: #141414;
+        }
+
+        .netflix-logo {
+            height: 45px;
+        }
+
+        .navbar-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #b3b3b3;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .navbar-right i {
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .navbar-right i:hover {
+            color: #b3b3b3;
+        }
+
+        .profile-icon {
+            color: white;
+            font-size: 1.5rem;
+            margin-left: 15px;
+            transition: all 0.3s;
+        }
+
+        .profile-icon:hover {
+            color: #b3b3b3;
+        }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://image.tmdb.org/t/p/original/56v2KjBlU4XaOv9rVYEQypROD7P.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            padding: 0 50px;
+            margin-top: -80px;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            margin-top: 100px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .play-button, .info-button {
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .play-button {
+            background-color: white;
+            color: black;
+        }
+
+        .play-button:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .info-button {
+            background-color: rgba(109, 109, 110, 0.7);
+            color: white;
+        }
+
+        .info-button:hover {
+            background-color: rgba(109, 109, 110, 0.5);
+        }
+
+        .content-section {
+            padding: 40px 50px;
+        }
+
+        .content-section h2 {
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .content-row {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 20px;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+
+        .content-row::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
+        .content-item {
+            min-width: 220px;
+            height: 130px;
+            background-color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: transform 0.3s ease, z-index 0.3s;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .content-item:hover {
+            transform: scale(1.2);
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .content-item-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+
+        .content-info {
+            padding: 10px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+            z-index: 1;
+        }
+
+        .content-item h3 {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .netflix-n-logo {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 24px;
+            height: auto;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 3px;
+            border-radius: 4px;
+            z-index: 2;
+        }
+
+        .overlay-icons {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 2;
+        }
+
+        .content-item:hover .overlay-icons {
+            opacity: 1;
+        }
+
+        .overlay-icons i,
+        .overlay-icons select {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 6px 8px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .footer {
+            padding: 50px;
+            background-color: #141414;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .social-icons a {
+            color: rgb(165, 157, 157);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px 30px;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-links a {
+            color: #737373;
+            text-decoration: none;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        .service-code {
+            margin-bottom: 20px;
+        }
+
+        .service-code button {
+            background-color: #141414;
+            color: #737373;
+            border: 1px solid #737373;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .service-code button:hover {
+            color: white;
+            border-color: white;
+        }
+
+        .copyright {
+            color: #737373;
+            font-size: 0.8rem;
+            margin-top: 20px;
+            opacity: 0.8;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            overflow: auto;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: #181818;
+            margin: auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .close-modal {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-modal:hover {
+            color: white;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 350px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 4px;
+        }
+
+        .modal-title {
+            margin: 15px 0;
+            font-size: 1.8rem;
+        }
+
+        .modal-description {
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .modal-action-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 4px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-action-btn i {
+            font-size: 1.2rem;
+        }
+
+        .modal-play-btn {
+            background-color: white;
+            color: black;
+        }
+
+        .modal-play-btn:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .modal-add-btn {
+            background-color: rgba(109, 109, 110, 0.7);
+            color: white;
+        }
+
+        .modal-add-btn:hover {
+            background-color: rgba(109, 109, 110, 0.5);
+        }
+
+        .modal-like-btn {
+            background-color: rgba(109, 109, 110, 0.7);
+            color: white;
+        }
+
+        .modal-like-btn:hover {
+            background-color: rgba(109, 109, 110, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+            
+            .netflix-logo {
+                height: 30px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-content {
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .content-item {
+                min-width: 150px;
+                height: 100px;
+            }
+            
+            .content-section {
+                padding: 30px 20px;
+            }
+            
+            .modal-content {
+                width: 95%;
+            }
+            
+            .modal-image {
+                height: 200px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="navbar">
@@ -25,16 +495,15 @@
             <i class="fas fa-search"></i>
             <i class="fas fa-bell"></i>
             <a href="profile.html" class="profile-icon">
-    <i class="fas fa-user-circle"></i> <!-- Font Awesome profile icon -->
-  </a>
+                <i class="fas fa-user-circle"></i>
+            </a>
         </div>
     </div>
 
     <div class="hero">
         <div class="hero-content">
             <h1>STRANGER THINGS</h1>
-            
-            <p><h3 style="font-weight: normal;">The battle for Hawkins reaches its climax as Eleven and friends face Vecna’s wrath in a last stand to save their world.</h></p>
+            <p><h3 style="font-weight: normal;">The battle for Hawkins reaches its climax as Eleven and friends face Vecna's wrath in a last stand to save their world.</h3></p>
             <div class="hero-buttons">
                 <button class="play-button"><i class="fas fa-play"></i> Play</button>
                 <button class="info-button"><i class="fas fa-info-circle"></i> More info</button>
@@ -45,43 +514,203 @@
     <div class="content-section">
         <h2>Only On Netflix</h2>
         <div class="content-row">
+            <div class="content-item" data-title="Duty After High School" data-description="A group of high school graduates navigate life after graduation while dealing with unexpected supernatural events.">
+                <div class="content-item-bg" style="background-image: url('duty.jpg');"></div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" class="netflix-n-logo">
+                <div class="overlay-icons">
+                    <i class="fas fa-play play-icon"></i>
+                    <i class="fas fa-check-circle"></i>
+                    <i class="fas fa-thumbs-up"></i>
+                    <i class="fas fa-thumbs-down"></i>
+                    <select class="dropdown">
+                        <option value="">▼</option>
+                        <option value="info">Info</option>
+                        <option value="remove">Remove</option>
+                    </select>
+                </div>
+                <div class="content-info">
+                    <h3>DUTY AFTER HIGH SCHOOL</h3>
+                </div>
+            </div>
+            <div class="content-item" data-title="Sweet Home" data-description="As humans turn into savage monsters, one troubled teenager and his apartment neighbors fight to survive.">
+                <div class="content-item-bg" style="background-image: url('sweethome.jpg');"></div>
+                <div class="content-info">
+                    <h3>SWEET HOME</h3>
+                </div>
+            </div>
+            <div class="content-item" data-title="Night Has Come" data-description="High school students become trapped in a deadly game of mafia during their retreat.">
+                <div class="content-item-bg" style="background-image: url('NIGHT.jpg');"></div>
+                <div class="content-info">
+                    <h3>NIGHT HAS COME</h3>
+                </div>
+            </div>
+            <div class="content-item" data-title="Money Heist" data-description="Eight thieves take hostages and lock themselves in the Royal Mint of Spain as a criminal mastermind manipulates the police.">
+                <div class="content-item-bg" style="background-image: url('money.jpeg');"></div>
+                <div class="content-info">
+                    <h3>MONEY HEIST</h3>
+                </div>
+            </div>
+            <div class="content-item" data-title="Wednesday" data-description="Wednesday Addams attempts to master her emerging psychic ability at Nevermore Academy.">
+                <div class="content-item-bg" style="background-image: url('wed.jpeg');"></div>
+                <div class="content-info">
+                    <h3>WEDNESDAY</h3>
+                </div>
+            </div>
+            <div class="content-item" data-title="Squid Game" data-description="Hundreds of cash-strapped players accept a strange invitation to compete in children's games for a tempting prize.">
+                <div class="content-item-bg" style="background-image: url('squid.jpeg');"></div>
+                <div class="content-info">
+                    <h3>SQUID GAME</h3>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div class="content-item">
-        <h5></h5>
-       
+    <div class="content-section">
+        <h2>Most Watched</h2>
+        <div class="content-row">
+            <div class="content-item" data-title="Duty After High School" data-description="A group of high school graduates navigate life after graduation while dealing with unexpected supernatural events.">
+                <div class="content-item-bg" style="background-image: url('duty.jpg');"></div>
+                <div class="content-info">
+                    <h3>DUTY AFTER HIGH SCHOOL</h3>
+                </div>
+            </div>
+            <div class="content-item" data-title="Sweet Home" data-description="As humans turn into savage monsters, one troubled teenager and his apartment neighbors fight to survive.">
+                <div class="content-item-bg" style="background-image: url('sweethome.jpg');"></div>
+                <div class="content-info">
+                    <h3>SWEET HOME</h3>
+                </div>
+            </div>
+            <div class="content-item" data-title="Night Has Come" data-description="High school students become trapped in a deadly game of mafia during their retreat.">
+                <div class="content-item-bg" style="background-image: url('NIGHT.jpg');"></div>
+                <div class="content-info">
+                    <h3>NIGHT HAS COME</h3>
+                </div>
+            </div>
+            <div class="content-item" data-title="Money Heist" data-description="Eight thieves take hostages and lock themselves in the Royal Mint of Spain as a criminal mastermind manipulates the police.">
+                <div class="content-item-bg" style="background-image: url('money.jpeg');"></div>
+                <div class="content-info">
+                    <h3>MONEY HEIST</h3>
+                </div>
+            </div>
+            <div class="content-item" data-title="Wednesday" data-description="Wednesday Addams attempts to master her emerging psychic ability at Nevermore Academy.">
+                <div class="content-item-bg" style="background-image: url('wed.jpeg');"></div>
+                <div class="content-info">
+                    <h3>WEDNESDAY</h3>
+                </div>
+            </div>
+            <div class="content-item" data-title="Squid Game" data-description="Hundreds of cash-strapped players accept a strange invitation to compete in children's games for a tempting prize.">
+                <div class="content-item-bg" style="background-image: url('squid.jpeg');"></div>
+                <div class="content-info">
+                    <h3>SQUID GAME</h3>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="content-item">
-        <h3>WATCH NOW</h3>
 
+    <div class="content-section">
+        <h2>Trending Now</h2>
+        <div class="content-row">
+            <div class="content-item" data-title="Duty After High School" data-description="A group of high school graduates navigate life after graduation while dealing with unexpected supernatural events.">
+                <div class="content-item-bg" style="background-image: url('duty.jpg');"></div>
+                <div class="content-info">
+                    <h3>DUTY AFTER HIGH SCHOOL</h3>
+                </div>
+            </div>
+            <div class="content-item" data-title="Sweet Home" data-description="As humans turn into savage monsters, one troubled teenager and his apartment neighbors fight to survive.">
+                <div class="content-item-bg" style="background-image: url('sweethome.jpg');"></div>
+                <div class="content-info">
+                    <h3>SWEET HOME</h3>
+                </div>
+            </div>
+            <div class="content-item" data-title="Night Has Come" data-description="High school students become trapped in a deadly game of mafia during their retreat.">
+                <div class="content-item-bg" style="background-image: url('NIGHT.jpg');"></div>
+                <div class="content-info">
+                    <h3>NIGHT HAS COME</h3>
+                </div>
+            </div>
+            <div class="content-item" data-title="Money Heist" data-description="Eight thieves take hostages and lock themselves in the Royal Mint of Spain as a criminal mastermind manipulates the police.">
+                <div class="content-item-bg" style="background-image: url('money.jpeg');"></div>
+                <div class="content-info">
+                    <h3>MONEY HEIST</h3>
+                </div>
+            </div>
+            <div class="content-item" data-title="Wednesday" data-description="Wednesday Addams attempts to master her emerging psychic ability at Nevermore Academy.">
+                <div class="content-item-bg" style="background-image: url('wed.jpeg');"></div>
+                <div class="content-info">
+                    <h3>WEDNESDAY</h3>
+                </div>
+            </div>
+            <div class="content-item" data-title="Squid Game" data-description="Hundreds of cash-strapped players accept a strange invitation to compete in children's games for a tempting prize.">
+                <div class="content-item-bg" style="background-image: url('squid.jpeg');"></div>
+                <div class="content-info">
+                    <h3>SQUID GAME</h3>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="content-item">
-        
+
+    <div class="content-section">
+        <h2>Continue Watching</h2>
+        <div class="content-row">
+            <div class="content-item" data-title="Duty After High School" data-description="A group of high school graduates navigate life after graduation while dealing with unexpected supernatural events.">
+                <div class="content-item-bg" style="background-image: url('duty.jpg');"></div>
+                <div class="content-info">
+                    <h3>DUTY AFTER HIGH SCHOOL</h3>
+                </div>
+            </div>
+            <div class="content-item" data-title="Sweet Home" data-description="As humans turn into savage monsters, one troubled teenager and his apartment neighbors fight to survive.">
+                <div class="content-item-bg" style="background-image: url('sweethome.jpg');"></div>
+                <div class="content-info">
+                    <h3>SWEET HOME</h3>
+                </div>
+            </div>
+            <div class="content-item" data-title="Night Has Come" data-description="High school students become trapped in a deadly game of mafia during their retreat.">
+                <div class="content-item-bg" style="background-image: url('NIGHT.jpg');"></div>
+                <div class="content-info">
+                    <h3>NIGHT HAS COME</h3>
+                </div>
+            </div>
+            <div class="content-item" data-title="Money Heist" data-description="Eight thieves take hostages and lock themselves in the Royal Mint of Spain as a criminal mastermind manipulates the police.">
+                <div class="content-item-bg" style="background-image: url('money.jpeg');"></div>
+                <div class="content-info">
+                    <h3>MONEY HEIST</h3>
+                </div>
+            </div>
+            <div class="content-item" data-title="Wednesday" data-description="Wednesday Addams attempts to master her emerging psychic ability at Nevermore Academy.">
+                <div class="content-item-bg" style="background-image: url('wed.jpeg');"></div>
+                <div class="content-info">
+                    <h3>WEDNESDAY</h3>
+                </div>
+            </div>
+            <div class="content-item" data-title="Squid Game" data-description="Hundreds of cash-strapped players accept a strange invitation to compete in children's games for a tempting prize.">
+                <div class="content-item-bg" style="background-image: url('squid.jpeg');"></div>
+                <div class="content-info">
+                    <h3>SQUID GAME</h3>
+                </div>
+            </div>
+        </div>
     </div>
-   <div class="content-item">
-    <!-- Add these elements -->
-    <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" class="netflix-n-logo">
-    <div class="overlay-icons">
-        <i class="fas fa-play play-icon"></i>
-        <i class="fas fa-check-circle"></i>
-        <i class="fas fa-thumbs-up"></i>
-        <i class="fas fa-thumbs-down"></i>
-        <select class="dropdown">
-            <option value="">▼</option>
-            <option value="info">Info</option>
-            <option value="remove">Remove</option>
-        </select>
+
+    <!-- Modal for showing content details -->
+    <div id="contentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modalImage" class="modal-image"></div>
+            <h2 id="modalTitle" class="modal-title"></h2>
+            <p id="modalDescription" class="modal-description"></p>
+            <div class="modal-actions">
+                <button class="modal-action-btn modal-play-btn">
+                    <i class="fas fa-play"></i> Play
+                </button>
+                <button class="modal-action-btn modal-add-btn">
+                    <i class="fas fa-plus"></i> My List
+                </button>
+                <button class="modal-action-btn modal-like-btn">
+                    <i class="fas fa-thumbs-up"></i> Like
+                </button>
+            </div>
+        </div>
     </div>
-    <!-- Your existing content -->
-    <h3>BRIDGERTON</h3>
-    <h3>SEASON 2</h3>
-</div>
-    <div class="content-item">
-        
-    </div>
-    <div class="content-item">
-       
-    </div>
-</div>
 
     <footer class="footer">
         <div class="social-icons">
@@ -111,5 +740,80 @@
             © 1997-2024 Netflix, Inc.
         </div>
     </footer>
+
+    <script>
+        // Add scroll event to change navbar background
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Add horizontal scrolling with mouse drag for content rows
+        document.querySelectorAll('.content-row').forEach(row => {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            row.addEventListener('mousedown', (e) => {
+                isDown = true;
+                startX = e.pageX - row.offsetLeft;
+                scrollLeft = row.scrollLeft;
+            });
+            
+            row.addEventListener('mouseleave', () => {
+                isDown = false;
+            });
+            
+            row.addEventListener('mouseup', () => {
+                isDown = false;
+            });
+            
+            row.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - row.offsetLeft;
+                const walk = (x - startX) * 2;
+                row.scrollLeft = scrollLeft - walk;
+            });
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('contentModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const closeModal = document.querySelector('.close-modal');
+
+        // Add click event to all content items
+        document.querySelectorAll('.content-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const bgImage = this.querySelector('.content-item-bg').style.backgroundImage;
+                const title = this.getAttribute('data-title');
+                const description = this.getAttribute('data-description');
+                
+                modalImage.style.backgroundImage = bgImage;
+                modalTitle.textContent = title;
+                modalDescription.textContent = description;
+                
+                modal.style.display = 'flex';
+            });
+        });
+
+        // Close modal when clicking on X
+        closeModal.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside of modal content
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
