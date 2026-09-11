@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Netflix — Home</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            netflix: '#E50914',
+            'netflix-dark': '#141414',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body class="bg-netflix-dark font-sans text-white antialiased overflow-x-hidden">
+
+  <!-- ================= NAVBAR ================= -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 px-4 md:px-12 py-4 flex items-center justify-between bg-gradient-to-b from-black/90 to-transparent transition-colors duration-300">
+    <div class="flex items-center gap-6">
+      <a href="index.html" class="text-netflix text-2xl md:text-3xl font-black tracking-tight">NETFLIX</a>
+      <nav class="hidden md:flex items-center gap-5 text-sm text-white/80">
+        <a href="#" class="hover:text-white transition">Home</a>
+        <a href="#" class="hover:text-white transition">TV Shows</a>
+        <a href="#" class="hover:text-white transition">Movies</a>
+        <a href="#" class="hover:text-white transition">New &amp; Popular</a>
+        <a href="#" class="hover:text-white transition">My List</a>
+      </nav>
+    </div>
+    <div class="flex items-center gap-4">
+      <button class="text-white/80 hover:text-white transition text-lg" aria-label="Search">&#128269;</button>
+      <button class="text-white/80 hover:text-white transition text-lg hidden sm:block" aria-label="Notifications">&#128276;</button>
+      <div class="w-8 h-8 rounded bg-gradient-to-br from-netflix to-red-900 grid place-items-center text-xs font-bold">U</div>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section id="hero" class="relative h-[85vh] min-h-[520px] w-full">
+    <img id="hero-backdrop" src="" alt="" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 hero-overlay-left"></div>
+    <div class="absolute inset-0 hero-overlay-bottom"></div>
+
+    <div class="relative z-10 h-full flex flex-col justify-end pb-28 md:pb-36 px-4 md:px-12 max-w-2xl">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="text-netflix text-2xl font-black">N</span>
+        <span class="text-[10px] md:text-xs tracking-[0.35em] text-white/70">SERIES</span>
+      </div>
+      <h1 id="hero-title" class="text-4xl md:text-6xl font-black leading-tight drop-shadow-lg"></h1>
+      <div id="hero-meta" class="flex flex-wrap items-center gap-3 text-sm text-white/80 mt-3"></div>
+      <p id="hero-desc" class="mt-4 text-sm md:text-base text-white/85 line-clamp-3 max-w-xl"></p>
+      <div class="flex items-center gap-3 mt-6">
+        <a id="hero-play" href="#" class="flex items-center gap-2 bg-white text-black font-semibold px-6 py-2.5 rounded hover:bg-white/80 active:scale-95 transition">
+          <span>&#9654;</span> Play
+        </a>
+        <button id="hero-info" class="flex items-center gap-2 bg-white/25 backdrop-blur px-6 py-2.5 rounded font-semibold hover:bg-white/35 active:scale-95 transition">
+          <span>&#9432;</span> More Info
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MOVIE ROWS (Injected by JS) ================= -->
+  <main id="rows" class="relative z-20 -mt-20 md:-mt-28 pb-10"></main>
+
+  <!-- ================= MORE REASONS TO JOIN (PRICING/FEATURES) ================= -->
+  <section class="px-4 md:px-12 py-12 max-w-7xl mx-auto">
+    <h2 class="text-2xl md:text-3xl font-bold mb-6">More reasons to join</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      
+      <!-- Card 1 -->
+      <div class="bg-gradient-to-br from-[#192247] to-[#210e17] rounded-2xl p-6 relative overflow-hidden h-[250px]">
+        <h3 class="text-xl font-bold mb-2">Enjoy on your TV</h3>
+        <p class="text-white/70 text-sm">Watch on smart TVs, PlayStation, Xbox, Chromecast, Apple TV, Blu-ray players and more.</p>
+        <div class="absolute bottom-4 right-4 text-netflix opacity-80">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-gradient-to-br from-[#192247] to-[#210e17] rounded-2xl p-6 relative overflow-hidden h-[250px]">
+        <h3 class="text-xl font-bold mb-2">Download your shows to watch offline</h3>
+        <p class="text-white/70 text-sm">Save your favourites easily and always have something to watch.</p>
+        <div class="absolute bottom-4 right-4 text-netflix opacity-80">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-gradient-to-br from-[#192247] to-[#210e17] rounded-2xl p-6 relative overflow-hidden h-[250px]">
+        <h3 class="text-xl font-bold mb-2">Watch everywhere</h3>
+        <p class="text-white/70 text-sm">Stream unlimited movies and TV shows on your phone, tablet, laptop, and TV.</p>
+        <div class="absolute bottom-4 right-4 text-netflix opacity-80">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="bg-gradient-to-br from-[#192247] to-[#210e17] rounded-2xl p-6 relative overflow-hidden h-[250px]">
+        <h3 class="text-xl font-bold mb-2">Create profiles for kids</h3>
+        <p class="text-white/70 text-sm">Send kids on adventures with their favourite characters in a space made just for them — free with your membership.</p>
+        <div class="absolute bottom-4 right-4 text-netflix opacity-80">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"></circle><circle cx="15" cy="12" r="1"></circle><path d="M8 20v2h8v-2"></path><path d="M12 4a4 4 0 0 0-4 4v6h8V8a4 4 0 0 0-4-4z"></path><path d="M4 12v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"></path></svg>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= NEW FOOTER ================= -->
+  <footer class="px-4 md:px-12 py-16 text-white/70 text-sm border-t border-white/10">
+    <div class="max-w-5xl mx-auto">
+      
+      <!-- CTA Area -->
+      <div class="text-center mb-12">
+        <p class="text-white text-lg mb-4">Ready to watch? Enter your email to create or restart your membership.</p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-2 max-w-2xl mx-auto">
+          <input type="email" placeholder="Email address" class="w-full sm:w-2/3 bg-black/60 border border-white/30 rounded px-4 py-3 text-white placeholder-white/50 focus:outline-none focus:border-white transition" />
+          <button class="w-full sm:w-auto bg-netflix text-white text-lg font-semibold px-6 py-3 rounded flex items-center justify-center gap-2 hover:bg-red-700 transition">
+            Get Started <span>&#8250;</span>
+          </button>
+        </div>
+      </div>
+
+      <p class="mb-6">Questions? Call <a href="#" class="underline hover:text-white">000-800-919-1743</a></p>
+
+      <!-- Links Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="flex flex-col gap-3">
+          <a href="#" class="underline hover:text-white">FAQ</a>
+          <a href="#" class="underline hover:text-white">Investor Relations</a>
+          <a href="#" class="underline hover:text-white">Privacy</a>
+          <a href="#" class="underline hover:text-white">Speed Test</a>
+        </div>
+        <div class="flex flex-col gap-3">
+          <a href="#" class="underline hover:text-white">Help Centre</a>
+          <a href="#" class="underline hover:text-white">Jobs</a>
+          <a href="#" class="underline hover:text-white">Cookie Preferences</a>
+          <a href="#" class="underline hover:text-white">Legal Notices</a>
+        </div>
+        <div class="flex flex-col gap-3">
+          <a href="#" class="underline hover:text-white">Account</a>
+          <a href="#" class="underline hover:text-white">Ways to Watch</a>
+          <a href="#" class="underline hover:text-white">Corporate Information</a>
+          <a href="#" class="underline hover:text-white">Only on Netflix</a>
+        </div>
+        <div class="flex flex-col gap-3">
+          <a href="#" class="underline hover:text-white">Media Centre</a>
+          <a href="#" class="underline hover:text-white">Terms of Use</a>
+          <a href="#" class="underline hover:text-white">Contact Us</a>
+        </div>
+      </div>
+
+      <!-- Language Selector -->
+      <div class="mb-6">
+        <button class="flex items-center gap-2 border border-white/30 rounded px-3 py-1.5 text-white bg-black/40 hover:bg-black/60 transition">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          English <span class="text-xs">&#9660;</span>
+        </button>
+      </div>
+
+      <p class="mb-4 text-white/50">Netflix India</p>
+      <p class="text-white/40 text-xs">This page is protected by Google reCAPTCHA to ensure you're not a bot.</p>
+      
+      <p class="pt-8 text-white/30 text-center">built using html tailwind js by akshara</p>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

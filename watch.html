@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Netflix — Watch</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            netflix: '#E50914',
+            'netflix-dark': '#141414',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body class="bg-netflix-dark font-sans text-white antialiased min-h-screen flex flex-col">
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="px-4 md:px-12 py-4 flex items-center justify-between bg-black/60 backdrop-blur">
+    <a href="index.html" class="text-netflix text-2xl md:text-3xl font-black tracking-tight">NETFLIX</a>
+    <a href="index.html" class="text-sm text-white/70 hover:text-white transition flex items-center gap-1">
+      <span>&larr;</span> Back to Home
+    </a>
+  </header>
+
+  <!-- ================= VIDEO PLAYER ================= -->
+  <main class="flex-1 flex flex-col items-center justify-center px-4 py-10">
+    <div id="player-container" class="w-full max-w-5xl aspect-video bg-black rounded-lg overflow-hidden shadow-2xl">
+      <iframe
+        id="trailer-frame"
+        class="w-full h-full"
+        src=""
+        title="Video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+
+    <!-- Movie Info -->
+    <div class="w-full max-w-5xl mt-6">
+      <h1 id="watch-title" class="text-2xl md:text-4xl font-bold"></h1>
+      <div id="watch-meta" class="flex flex-wrap items-center gap-3 text-sm text-white/60 mt-2"></div>
+      <p id="watch-desc" class="mt-4 text-sm md:text-base text-white/80 max-w-3xl"></p>
+    </div>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="px-4 md:px-12 py-8 text-center text-white/30 text-xs md:text-sm border-t border-white/10">
+    built using html tailwind js by akshara
+  </footer>
+
+  <!-- ================= SCRIPTS ================= -->
+  <script src="js/data.js"></script>
+  <script src="js/watch.js"></script>
+</body>
+</html>
