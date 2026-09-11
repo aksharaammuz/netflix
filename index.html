@@ -25,7 +25,7 @@
       },
     };
   </script>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body class="bg-netflix-dark font-sans text-white antialiased overflow-x-hidden">
@@ -77,44 +77,40 @@
   <!-- ================= MOVIE ROWS (Injected by JS) ================= -->
   <main id="rows" class="relative z-20 -mt-20 md:-mt-28 pb-10"></main>
 
-  <!-- ================= MORE REASONS TO JOIN (PRICING/FEATURES) ================= -->
+  <!-- ================= MORE REASONS TO JOIN ================= -->
   <section class="px-4 md:px-12 py-12 max-w-7xl mx-auto">
     <h2 class="text-2xl md:text-3xl font-bold mb-6">More reasons to join</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       
-      <!-- Card 1 -->
       <div class="bg-gradient-to-br from-[#192247] to-[#210e17] rounded-2xl p-6 relative overflow-hidden h-[250px]">
         <h3 class="text-xl font-bold mb-2">Enjoy on your TV</h3>
         <p class="text-white/70 text-sm">Watch on smart TVs, PlayStation, Xbox, Chromecast, Apple TV, Blu-ray players and more.</p>
         <div class="absolute bottom-4 right-4 text-netflix opacity-80">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>
         </div>
       </div>
 
-      <!-- Card 2 -->
       <div class="bg-gradient-to-br from-[#192247] to-[#210e17] rounded-2xl p-6 relative overflow-hidden h-[250px]">
         <h3 class="text-xl font-bold mb-2">Download your shows to watch offline</h3>
         <p class="text-white/70 text-sm">Save your favourites easily and always have something to watch.</p>
         <div class="absolute bottom-4 right-4 text-netflix opacity-80">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
         </div>
       </div>
 
-      <!-- Card 3 -->
       <div class="bg-gradient-to-br from-[#192247] to-[#210e17] rounded-2xl p-6 relative overflow-hidden h-[250px]">
         <h3 class="text-xl font-bold mb-2">Watch everywhere</h3>
         <p class="text-white/70 text-sm">Stream unlimited movies and TV shows on your phone, tablet, laptop, and TV.</p>
         <div class="absolute bottom-4 right-4 text-netflix opacity-80">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
         </div>
       </div>
 
-      <!-- Card 4 -->
       <div class="bg-gradient-to-br from-[#192247] to-[#210e17] rounded-2xl p-6 relative overflow-hidden h-[250px]">
         <h3 class="text-xl font-bold mb-2">Create profiles for kids</h3>
         <p class="text-white/70 text-sm">Send kids on adventures with their favourite characters in a space made just for them — free with your membership.</p>
         <div class="absolute bottom-4 right-4 text-netflix opacity-80">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"></circle><circle cx="15" cy="12" r="1"></circle><path d="M8 20v2h8v-2"></path><path d="M12 4a4 4 0 0 0-4 4v6h8V8a4 4 0 0 0-4-4z"></path><path d="M4 12v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"></path></svg>
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="12" r="1"></circle><circle cx="15" cy="12" r="1"></circle><path d="M8 20v2h8v-2"></path><path d="M12 4a4 4 0 0 0-4 4v6h8V8a4 4 0 0 0-4-4z"></path><path d="M4 12v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"></path></svg>
         </div>
       </div>
 
@@ -125,7 +121,6 @@
   <footer class="px-4 md:px-12 py-16 text-white/70 text-sm border-t border-white/10">
     <div class="max-w-5xl mx-auto">
       
-      <!-- CTA Area -->
       <div class="text-center mb-12">
         <p class="text-white text-lg mb-4">Ready to watch? Enter your email to create or restart your membership.</p>
         <div class="flex flex-col sm:flex-row items-center justify-center gap-2 max-w-2xl mx-auto">
@@ -138,7 +133,6 @@
 
       <p class="mb-6">Questions? Call <a href="#" class="underline hover:text-white">000-800-919-1743</a></p>
 
-      <!-- Links Grid -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div class="flex flex-col gap-3">
           <a href="#" class="underline hover:text-white">FAQ</a>
@@ -165,7 +159,6 @@
         </div>
       </div>
 
-      <!-- Language Selector -->
       <div class="mb-6">
         <button class="flex items-center gap-2 border border-white/30 rounded px-3 py-1.5 text-white bg-black/40 hover:bg-black/60 transition">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
@@ -180,8 +173,8 @@
     </div>
   </footer>
 
-  <script src="js/data.js"></script>
-  <script src="js/ui.js"></script>
-  <script src="js/home.js"></script>
+  <script src="data.js"></script>
+  <script src="ui.js"></script>
+  <script src="home.js"></script>
 </body>
 </html>
