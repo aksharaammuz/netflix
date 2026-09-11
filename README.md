@@ -22,10 +22,8 @@ A frontend-only Netflix UI clone built using **HTML**, **Tailwind CSS**, and **V
 project/
 ├── index.html          # Home page
 ├── watch.html          # Trailer/Watch page
-├── css/
-│   └── style.css       # Custom CSS (overlays, slider arrows, Top 10 styling)
-└── js/
-    ├── data.js         # Movie library and row configurations
-    ├── ui.js           # Reusable UI functions (card & row creation)
-    ├── home.js         # Home page logic (hero + rows)
-    └── watch.js        # Watch page logic (URL params + trailer loading)
+└── style.css       # Custom CSS (overlays, slider arrows, Top 10 styling
+├── data.js         # Movie library and row configurations 
+├── ui.js           # Reusable UI functions (card & row creation)
+├── home.js         # Home page logic (hero + rows)
+└── watch.js        # Watch page logic (URL params + trailer loading)
