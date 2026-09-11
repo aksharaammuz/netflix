@@ -50,7 +50,6 @@
 }
 
 /* --- MOVIE CARD HOVER EFFECTS --- */
-/* Ensure only the single hovered card scales up */
 .movie-card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   transform-origin: center center;
@@ -60,10 +59,10 @@
 .movie-card:hover {
   transform: scale(1.08);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-  z-index: 50; /* Brings the scaled card to the front */
+  z-index: 50;
 }
 
-/* --- SLIDER ARROWS (NETFLIX STYLE) --- */
+/* --- SLIDER ARROWS --- */
 .row-slider-btn {
   position: absolute;
   top: 0;
@@ -80,10 +79,9 @@
   transition: opacity 0.3s ease, background 0.3s ease;
   border: none;
   font-size: 24px;
-  pointer-events: none; /* Prevents clicking when hidden */
+  pointer-events: none;
 }
 
-/* Show arrows only when hovering over the row */
 .row-container:hover .row-slider-btn {
   opacity: 1;
   pointer-events: auto;
